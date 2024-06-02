@@ -6,7 +6,7 @@
 [x] State Management: Use React's useState hook to manage input and output URLs.
 [x] Handle URL Input: Implement form submission logic to handle long URL input.
 [x] Generate Shortened URL: Use nanoid? for random strings.
-[ ] Store URLs: Set up a backend database to store long & short URL mappings.
+[x] Store URLs: Set up a backend database to store long & short URL mappings.
 [ ] Create API Endpoints: Build API routes in Next.js for shortening and redirecting URLs.
 [ ] Implement Redirect Logic: Redirect users to original URLs based on short URLs.
 [ ] Error Handling: Handle invalid URLs and server errors gracefully.

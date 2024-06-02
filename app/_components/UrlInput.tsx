@@ -7,15 +7,34 @@ import ShortUrlOutput from "./ShortUrlOutput";
 const UrlInput = () => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
-  const hostname = "localhost:3000/";
+  const [originalUrl, setOriginalUrl] = useState("");
 
-  const handleSubmitUrl = (e: any) => {
+  const handleSubmitUrlToServer = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
-    if (!url) return;
-    // Check if URL is valid and not used yet? (Need some way to use server for async validation)
-    setShortUrl(hostname + nanoid(7)); // Generates a random short URL
-    console.log(url, shortUrl);
-    setUrl("");
+
+    const formData = new FormData(e.currentTarget);
+
+    const data = {
+      url: formData.get("url-input") as string,
+    };
+
+    const response = await fetch("/api/addUrl", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 200) {
+      const { url, shortUrl } = await response.json();
+      setShortUrl(shortUrl);
+      console.log(url, shortUrl);
+      setOriginalUrl(url);
+      setUrl("");
+    }
   };
 
   const handleCopyShortUrl = () => {
@@ -26,11 +45,11 @@ const UrlInput = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className="w-[800px] flex flex-col items-center justify-center gap-4">
       <form
         id="url-form"
-        onSubmit={handleSubmitUrl}
-        className="flex flex-col items-center justify-center gap-4"
+        onSubmit={handleSubmitUrlToServer}
+        className="flex flex-col items-center justify-center gap-4 w-full"
       >
         <label htmlFor="url-input" className="text-3xl">
           Enter your long URL:
@@ -50,11 +69,9 @@ const UrlInput = () => {
           Submit
         </button>
       </form>
-      {shortUrl && <ShortUrlOutput shortUrl={shortUrl} />}
-      {/* DEBUG CONSOLE */}
-      <div className="absolute bottom-0 right-0 bg-black text-white">
-        <p>{shortUrl || "no short url found"}</p>
-      </div>
+      {shortUrl && (
+        <ShortUrlOutput shortUrl={shortUrl} originalUrl={originalUrl} />
+      )}
     </div>
   );
 };
