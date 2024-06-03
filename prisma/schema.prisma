@@ -15,7 +15,7 @@ datasource db {
 
 model RedirectLinks {
   id          String    @id @default(cuid())
-  shortUrl    String
+  shortUrl    String    @unique
   redirectTo  String
   hits        Int       @default(0)
   createdAt   DateTime  @default(now())

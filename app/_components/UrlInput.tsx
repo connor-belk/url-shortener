@@ -37,13 +37,6 @@ const UrlInput = () => {
     }
   };
 
-  const handleCopyShortUrl = () => {
-    if (!document.getElementById("short-url-text")?.innerText) return;
-    const shortUrlText = document.getElementById("short-url-text")?.innerHTML;
-    navigator.clipboard.writeText(shortUrlText!);
-    console.log("copied:", shortUrlText);
-  };
-
   return (
     <div className="w-[800px] flex flex-col items-center justify-center gap-4">
       <form
