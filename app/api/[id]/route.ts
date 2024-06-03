@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const shortUrl = req.nextUrl.host + req.nextUrl.pathname;
 
   const redirectObject = await prisma.redirectLinks.findUnique({
-    where: { shortUrl },
+    where: { shortUrl: shortUrl },
   });
 
   if (!redirectObject) return new Response("not found", { status: 404 });
