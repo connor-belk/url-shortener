@@ -1,9 +1,10 @@
 import { nanoid } from "nanoid";
 import { prisma } from "@/lib/prisma";
+import { NextRequest } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const { url } = await req.json();
-  const shortUrl = `${process.env.HOSTNAME}/api/${nanoid(8)}`;
+  const shortUrl = `${req.nextUrl.host}/api/${nanoid(8)}`;
 
   // console.log(url, shortUrl);
 
