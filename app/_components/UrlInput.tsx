@@ -14,6 +14,9 @@ const UrlInput = () => {
   ) => {
     e.preventDefault();
 
+    setShortUrl("");
+    setOriginalUrl("");
+
     const formData = new FormData(e.currentTarget);
 
     const data = {

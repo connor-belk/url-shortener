@@ -4,7 +4,18 @@ import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { url } = await req.json();
-  const shortUrl = `${req.nextUrl.host}/api/${nanoid(8)}`;
+  if (!url) return new Response("invalid url", { status: 400 });
+
+  let shortUrl = `${req.nextUrl.host}/api/${nanoid(8)}`;
+
+  const redirectObject = await prisma.redirectLinks.findUnique({
+    where: { shortUrl: shortUrl },
+  });
+
+  while (redirectObject) {
+    console.log("redirect url already exists. trying again");
+    shortUrl = `${req.nextUrl.host}/api/${nanoid(8)}`;
+  }
 
   // console.log(url, shortUrl);
 

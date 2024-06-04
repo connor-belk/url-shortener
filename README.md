@@ -9,4 +9,4 @@
 [x] Store URLs: Set up a backend database to store long & short URL mappings.
 [x] Create API Endpoints: Build API routes in Next.js for redirecting URLs.
 [x] Implement Redirect Logic: Redirect users to original URLs based on short URLs.
-[ ] Error Handling: Handle invalid URLs and server errors gracefully.
+[x] Error Handling: Handle invalid URLs and server errors gracefully.
