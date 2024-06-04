@@ -1,11 +1,13 @@
 "use client";
 
+import toast, { Toaster } from "react-hot-toast";
+
 const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
   const handleCopyShortUrl = () => {
     if (!document.getElementById("short-url-text")?.innerText) return;
     const shortUrlText = document.getElementById("short-url-text")?.innerHTML;
     navigator.clipboard.writeText(shortUrlText!);
-    console.log("copied:", shortUrlText);
+    toast.success("Copied short URL to clipboard");
   };
 
   if (!shortUrl) return null;
@@ -22,6 +24,7 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
         {shortUrl}
       </p>
       <button onClick={handleCopyShortUrl}>Copy Short Link</button>
+      <Toaster />
     </div>
   );
 };

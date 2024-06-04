@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import toast, { Toaster } from "react-hot-toast";
 import ShortUrlOutput from "./ShortUrlOutput";
 
 const UrlInput = () => {
@@ -33,6 +34,7 @@ const UrlInput = () => {
 
     if (response.status === 200) {
       const { url, shortUrl } = await response.json();
+      toast.success("URL added successfully");
       setShortUrl(shortUrl);
       console.log(url, shortUrl);
       setOriginalUrl(url);
@@ -69,6 +71,7 @@ const UrlInput = () => {
       {shortUrl && (
         <ShortUrlOutput shortUrl={shortUrl} originalUrl={originalUrl} />
       )}
+      <Toaster />
     </div>
   );
 };
