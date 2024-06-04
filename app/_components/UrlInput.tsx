@@ -48,11 +48,12 @@ const UrlInput = () => {
           Enter your long URL:
         </label>
         <input
-          type="text"
+          type="url"
           id="url-input"
           name="url-input"
           value={url}
-          className="text-xl px-4 py-2 w-full rounded-lg bg-inherit border border-gray-300 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-slate-50"
+          placeholder="https://example.com, include http:// or https://"
+          className="text-xl text-center px-4 py-2 w-full rounded-lg bg-inherit border border-gray-300 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-slate-50"
           onChange={(e: any) => setUrl(e.target.value)}
         />
         <button
