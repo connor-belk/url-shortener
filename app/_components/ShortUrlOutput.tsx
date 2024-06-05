@@ -23,7 +23,7 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
   if (!shortUrl) return null;
   return (
     <div className="w-full mb-4">
-      <p className="text-3xl">Your short URL for:</p>
+      <p className="text-3xl text-center">Your short URL for:</p>
       <textarea className="border p-2 text-lg rounded-lg bg-inherit h-12 w-full resize-none no-scrollbar text-center">
         {originalUrl}
       </textarea>
@@ -48,7 +48,7 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
         >
           {shortUrl}
         </p>
-        <p>Tap link to copy.</p>
+        <p className="text-sm mt-2">&#40;Tap link to copy.&#41;</p>
       </div>
       <Toaster />
     </div>

@@ -43,7 +43,7 @@ const UrlInput = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 w-full">
+    <div className="flex flex-col items-center justify-center gap-4 w-full mx-auto">
       <form
         id="url-form"
         onSubmit={handleSubmitUrlToServer}
