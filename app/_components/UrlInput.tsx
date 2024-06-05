@@ -43,11 +43,11 @@ const UrlInput = () => {
   };
 
   return (
-    <div className="w-[800px] flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4 w-full">
       <form
         id="url-form"
         onSubmit={handleSubmitUrlToServer}
-        className="flex flex-col items-center justify-center gap-4 w-full"
+        className="mx-2 flex flex-col items-center justify-center gap-4 w-full"
       >
         <label htmlFor="url-input" className="text-3xl">
           Enter your long URL:
@@ -57,8 +57,8 @@ const UrlInput = () => {
           id="url-input"
           name="url-input"
           value={url}
-          placeholder="https://example.com, include http:// or https://"
-          className="text-xl text-center px-4 py-2 w-full rounded-lg bg-inherit border border-gray-300 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-slate-50"
+          placeholder="include http:// or https://"
+          className="text-xl text-center px-4 py-2 rounded-lg bg-inherit border border-gray-300 w-full focus:outline-none focus:border-transparent focus:ring-2 focus:ring-slate-50"
           onChange={(e: any) => setUrl(e.target.value)}
         />
         <button

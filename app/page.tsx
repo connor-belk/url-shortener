@@ -4,7 +4,7 @@ import ShortUrlOutput from "./_components/ShortUrlOutput";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center gap-10 h-[650px]">
+    <main className="flex flex-col items-center justify-center gap-10 max-h-screen my-auto max-w-[600px] mx-4 sm:mx-auto">
       <UrlInput />
       <ShortUrlOutput />
     </main>
