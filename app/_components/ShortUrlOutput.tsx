@@ -11,6 +11,15 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
     toast.success("Copied short URL to clipboard");
   };
 
+  const handleCopyShortUrlMobile = () => {
+    if (!document.getElementById("short-url-text-mobile")?.innerText) return;
+    const shortUrlText = document.getElementById(
+      "short-url-text-mobile"
+    )?.innerHTML;
+    navigator.clipboard.writeText(shortUrlText!);
+    toast.success("Copied short URL to clipboard");
+  };
+
   if (!shortUrl) return null;
   return (
     <div className="w-full mb-4">
@@ -19,11 +28,8 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
         {originalUrl}
       </textarea>
 
-      <div
-        id="short-url-text"
-        className="hidden text-xl px-5 py-1 border rounded-lg text-center sm:flex items-center justify-between"
-      >
-        <p>{shortUrl}</p>
+      <div className="hidden text-xl px-5 py-1 border rounded-lg text-center sm:flex items-center justify-between">
+        <p id="short-url-text">{shortUrl}</p>
         <button onClick={handleCopyShortUrl}>
           <Image
             src={"copy.svg"}
@@ -35,8 +41,11 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
         </button>
       </div>
 
-      <div className="sm:hidden text-center" onClick={handleCopyShortUrl}>
-        <p className="text-2xl border px-3 py-1 rounded-lg cursor-pointer">
+      <div className="sm:hidden text-center" onClick={handleCopyShortUrlMobile}>
+        <p
+          id="short-url-text-mobile"
+          className="text-2xl border px-3 py-1 rounded-lg cursor-pointer"
+        >
           {shortUrl}
         </p>
         <p>Tap link to copy.</p>
