@@ -5,10 +5,10 @@ Welcome to SHRTNR, my URL Shortener project! This application allows you to shor
 ## Features
 
 - **Shorten URLs**: Quickly convert long URLs into short, manageable links.
-- **Custom Aliases**: Create custom short links for easy identification and branding. (not yet implemented)
-- **Analytics Tracking**: Monitor the performance of your short links with detailed analytics.
+- **Custom Aliases**: Create custom short links for easy identification and branding.
+- **Analytics Tracking**: Monitor the performance of your short links with detailed analytics. (not yet implemented)
 - **User-friendly Interface**: Simple and intuitive interface for creating and managing short URLs.
-- **API Access**: Programmatic access to shorten URLs and retrieve analytics data.
+- **API Access**: Programmatic access to shorten URLs and retrieve analytics data. (not yet implemented)
 
 ## Getting Started
 
@@ -37,9 +37,10 @@ Follow these instructions to get a copy of the project up and running on your lo
 (not yet implemented)
 
 1. Open the application in your browser.
-2. Navigate to the "Analytics" section.
-3. Enter the short URL or alias you want to track.
-4. View detailed analytics, including click counts, geographic data, and more.
+2. Sign in to your account with Google.
+3. Navigate to the "Analytics" section.
+4. Enter the short URL or alias you want to track.
+5. View detailed analytics like click counts.
 
 ## API Documentation
 
