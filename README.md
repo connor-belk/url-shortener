@@ -17,38 +17,10 @@ Follow these instructions to get a copy of the project up and running on your lo
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (v14.x or higher)
-- [MongoDB](https://www.mongodb.com/) (v4.x or higher)
-
-### Installation
-
-1. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/yourusername/url-shortener.git
-   cd url-shortener
-   ```
-
-2. **Install dependencies**:
-
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**:
-   Create a `.env` file in the root directory and add the following variables:
-
-   ```
-   DB_URI=your_db_connection_string
-   PORT=3000
-   ```
-
-4. **Start the application**:
-
-   ```bash
-   npm run dev
-   ```
-
-   The application will be available at `http://localhost:3000`.
+- [Supabase](https://www.supabase.com/)
+- [Next.js](https://nextjs.org/) (v14.x or higher)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Prisma](https://prisma.io/)
 
 ## Usage
 
