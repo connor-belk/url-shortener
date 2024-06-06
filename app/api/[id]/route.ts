@@ -11,6 +11,9 @@ export async function GET(req: NextRequest) {
 
   if (!redirectObject) return new Response("not found", { status: 404 });
 
+  if (redirectObject.expiresAt && redirectObject.expiresAt < new Date())
+    return new Response("url expired", { status: 404 });
+
   redirectObject.hits += 1;
 
   await prisma.redirectLinks.update({
