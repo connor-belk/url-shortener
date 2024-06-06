@@ -24,9 +24,11 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
   return (
     <div className="w-full mb-4">
       <p className="text-3xl text-center">Your short URL for:</p>
-      <textarea className="border p-2 text-lg rounded-lg bg-inherit h-12 w-full resize-none no-scrollbar text-center">
-        {originalUrl}
-      </textarea>
+      <textarea
+        className="border p-2 text-lg rounded-lg bg-inherit h-12 w-full resize-none no-scrollbar text-center"
+        value={originalUrl}
+        readOnly
+      ></textarea>
 
       <div className="hidden text-xl px-5 py-1 border rounded-lg text-center sm:flex items-center justify-between">
         <p id="short-url-text">{shortUrl}</p>
