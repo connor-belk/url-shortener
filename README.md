@@ -10,3 +10,4 @@
 [x] Create API Endpoints: Build API routes in Next.js for redirecting URLs.
 [x] Implement Redirect Logic: Redirect users to original URLs based on short URLs.
 [x] Error Handling: Handle invalid URLs and server errors gracefully.
+[x] Add Analytics Tracking: Implement analytics tracking to track clicks and views on shortened URLs.

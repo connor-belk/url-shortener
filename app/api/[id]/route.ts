@@ -11,5 +11,12 @@ export async function GET(req: NextRequest) {
 
   if (!redirectObject) return new Response("not found", { status: 404 });
 
+  redirectObject.hits += 1;
+
+  await prisma.redirectLinks.update({
+    where: { id: redirectObject.id },
+    data: { hits: redirectObject.hits },
+  });
+
   redirect(redirectObject.redirectTo);
 }
