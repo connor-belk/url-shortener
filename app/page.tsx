@@ -1,9 +1,9 @@
 import UrlInput from "./_components/UrlInput";
 import ShortUrlOutput from "./_components/ShortUrlOutput";
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 
 export default async function Home() {
-  const session = await auth();
+  // const session = await auth();
   // console.log(session);
 
   return (
