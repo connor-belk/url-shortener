@@ -1,17 +1,30 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+import UrlTableEditBtn from "./UrlTableEditBtn";
+import UrlTableDeleteBtn from "./UrlTableDeleteBtn";
 import Link from "next/link";
 
 const UrlTable = async () => {
   const session = await auth();
   if (!session) return null;
 
+  const getUserUrls = async () => {
+    let userUrls = await prisma.redirectLinks.findMany({
+      where: { ownerId: session.user?.id },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return userUrls;
+  };
+
   let userUrls = await prisma.redirectLinks.findMany({
     where: { ownerId: session.user?.id },
     orderBy: { createdAt: "desc" },
   });
 
-  //   #TODO: add delete functionality
+  //   #TODO: add delete logic                #DONE
+  //   #TODO: add delete functionality        #DONE
+  //   #TODO: add edit logic                  #DONE
   //   #TODO: add edit functionality
   //   #TODO: add table refresh functionality
 
@@ -36,7 +49,10 @@ const UrlTable = async () => {
             <td className="border-l border-r">{url.shortUrl}</td>
             <td className="border-l border-r w-[35rem]">{url.redirectTo}</td>
             <td className="border-l border-r w-[3rem]">{url.hits}</td>
-            <td className="border-l border-r w-[7rem]">Edit | Delete</td>
+            <td className="border-l border-r w-[7rem]">
+              <UrlTableEditBtn url={url} />
+              <UrlTableDeleteBtn url={url.id} />
+            </td>
           </tr>
         ))}
       </tbody>
