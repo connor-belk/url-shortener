@@ -51,16 +51,8 @@ const UrlTable = async () => {
             className="text-center border-b hover:bg-gray-800 transition-colors duration-150"
           >
             <td className="border-l border-r w-[2rem]">{index + 1}</td>
-            <td className="border-l border-r">
-              <Link href={url.shortUrl} className="hover:underline">
-                {url.shortUrl}
-              </Link>
-            </td>
-            <td className="border-l border-r w-[35rem]">
-              <Link href={url.redirectTo} className="hover:underline">
-                {url.redirectTo}
-              </Link>
-            </td>
+            <td className="border-l border-r">{url.shortUrl}</td>
+            <td className="border-l border-r w-[35rem]">{url.redirectTo}</td>
             <td className="border-l border-r w-[3rem]">{url.hits}</td>
             <td className="border-l border-r w-[7rem]">
               <UrlTableEditBtn url={url} />
