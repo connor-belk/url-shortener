@@ -1,5 +1,7 @@
 "use client";
 
+import toast, { Toaster } from "react-hot-toast";
+
 const deleteUrl = async (urlId: string) => {
   const res = await fetch(`/api/${urlId}`, {
     method: "DELETE",
@@ -22,9 +24,16 @@ const UrlTableDeleteBtn = ({ url }: { url: string }) => {
   return (
     <div
       className="hover:cursor-pointer hover:underline"
-      onClick={() => deleteUrl(url)}
+      onClick={() =>
+        toast.promise(deleteUrl(url), {
+          loading: "Deleting URL...",
+          success: `URL deleted successfully`,
+          error: "Error deleting URL",
+        })
+      }
     >
       Delete
+      <Toaster />
     </div>
   );
 };
