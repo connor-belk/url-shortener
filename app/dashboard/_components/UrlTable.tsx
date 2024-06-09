@@ -4,6 +4,8 @@ import UrlTableEditBtn from "./UrlTableEditBtn";
 import UrlTableDeleteBtn from "./UrlTableDeleteBtn";
 import Link from "next/link";
 
+export const revalidate = 10;
+
 const UrlTable = async () => {
   const session = await auth();
   if (!session) return null;

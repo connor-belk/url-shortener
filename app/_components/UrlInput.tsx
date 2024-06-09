@@ -6,14 +6,14 @@ import ShortUrlOutput from "./ShortUrlOutput";
 
 import { getSession } from "@/lib/auth";
 
-const UrlInput = () => {
+const UrlInput = ({ session }: { session: any }) => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [originalUrl, setOriginalUrl] = useState("");
   const [customTailEnd, setCustomTailEnd] = useState("");
 
   // const session = await getSession();
-  const session = true;
+  // const session = true;
 
   const handleSubmitUrlToServer = async (
     e: React.FormEvent<HTMLFormElement>
