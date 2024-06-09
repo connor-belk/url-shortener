@@ -3,22 +3,25 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import ShortUrlOutput from "./ShortUrlOutput";
+import Loader from "./Loader";
 
 import { getSession } from "@/lib/auth";
 
-const UrlInput = () => {
+const UrlInput = ({ session }: { session: any }) => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [originalUrl, setOriginalUrl] = useState("");
   const [customTailEnd, setCustomTailEnd] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // const session = await getSession();
-  const session = true;
+  // const session = true;
 
   const handleSubmitUrlToServer = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
+    setLoading(true);
 
     setShortUrl("");
     setOriginalUrl("");
@@ -46,6 +49,7 @@ const UrlInput = () => {
       setOriginalUrl(url);
       setUrl("");
       setCustomTailEnd("");
+      setLoading(false);
     }
 
     if (response.status === 401) {
@@ -99,6 +103,7 @@ const UrlInput = () => {
       {shortUrl && (
         <ShortUrlOutput shortUrl={shortUrl} originalUrl={originalUrl} />
       )}
+      {loading && <Loader />}
       <Toaster />
     </div>
   );
