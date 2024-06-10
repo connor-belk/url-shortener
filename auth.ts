@@ -7,4 +7,28 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [Google],
+  callbacks: {
+    async signIn({ account, profile }) {
+      // let verifiedTime; // This code for email verification for db value DateTime
+      if (!profile?.email) {
+        throw new Error("No email found in profile");
+      }
+
+      // if (profile.email_verified) { // This code for email verification for db value DateTime
+      //   verifiedTime = new Date();
+      // }
+
+      const user = await prisma.user.upsert({
+        where: { email: profile.email },
+        create: {
+          email: profile.email,
+          name: profile.name,
+          emailVerified: profile.email_verified,
+        },
+        update: { name: profile.name, emailVerified: profile.email_verified },
+      });
+
+      return true;
+    },
+  },
 });
