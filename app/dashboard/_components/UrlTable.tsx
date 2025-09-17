@@ -24,8 +24,6 @@ const UrlTable = async () => {
     orderBy: { createdAt: "desc" },
   });
 
-  //   #TODO: add delete logic                #DONE
-  //   #TODO: add delete functionality        #DONE
   //   #TODO: add edit logic                  #DONE
   //   #TODO: add edit functionality
   //   #TODO: add table refresh functionality
@@ -52,8 +50,8 @@ const UrlTable = async () => {
           >
             <td className="border-l border-r w-[2rem]">{index + 1}</td>
             <td className="border-l border-r">{url.shortUrl}</td>
-            <td className="border-l border-r w-[35rem]">{url.redirectTo}</td>
-            <td className="border-l border-r w-[3rem]">{url.hits}</td>
+            <td className="border-l border-r">{url.redirectTo}</td>
+            <td className="border-l border-r">{url.hits}</td>
             <td className="border-l border-r w-[7rem]">
               <UrlTableEditBtn url={url} />
               <UrlTableDeleteBtn url={url.id} />
