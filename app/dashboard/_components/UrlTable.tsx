@@ -52,8 +52,8 @@ const UrlTable = async () => {
           >
             <td className="border-l border-r w-[2rem]">{index + 1}</td>
             <td className="border-l border-r">{url.shortUrl}</td>
-            <td className="border-l border-r w-[35rem]">{url.redirectTo}</td>
-            <td className="border-l border-r w-[3rem]">{url.hits}</td>
+            <td className="border-l border-r">{url.redirectTo}</td>
+            <td className="border-l border-r">{url.hits}</td>
             <td className="border-l border-r w-[7rem]">
               <UrlTableEditBtn url={url} />
               <UrlTableDeleteBtn url={url.id} />
