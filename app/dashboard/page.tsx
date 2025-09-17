@@ -7,7 +7,8 @@ const Dashboard = async () => {
   if (!session)
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 max-h-screen my-auto w-[80%] max-w-[600px] mx-auto">
-        You must be logged in to access this page.
+        <span className="text-xl font-bold">ERROR 401: Unauthorized!</span> You
+        must be logged in to access this page.
         <Link href={"/"} className="hover:underline italic">
           Return to homepage
         </Link>
