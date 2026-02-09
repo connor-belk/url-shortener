@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 const Footer = () => {
   return (
-    <div className="h-9 bg-slate-500 sticky">
-      <p className="text-center">&copy; SHRTNR</p>
+    <div className="bg-slate-500 sticky flex flex-col items-center gap-3">
+      <p className="text-center">&copy; SHRTNR 2026</p>
     </div>
   );
 };

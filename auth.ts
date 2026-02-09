@@ -6,7 +6,15 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  providers: [Google],
+  providers: [
+    Google({
+      authorization: {
+        params: {
+          prompt: "select_account", // <-- This forces the account chooser to show
+        },
+      },
+    }),
+  ],
   callbacks: {
     async signIn({ account, profile }) {
       // let verifiedTime; // This code for email verification for db value DateTime
