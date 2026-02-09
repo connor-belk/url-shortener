@@ -20,7 +20,19 @@ const Dashboard = async () => {
       <h2 className="text-3xl mt-3">
         Manage your links here, <span>{session?.user?.name}</span>.
       </h2>
-      <UrlTable />
+      <div className="hidden lg:block">
+        <UrlTable />
+      </div>
+      <div className="lg-hidden flex flex-col text-center items-center justify-center gap-5 mt-10">
+        <p>
+          Your URL table is hidden while not on a large screen due to ongoing
+          optimization problems. We apologize for the inconvenience.
+        </p>
+        <p>A fix is in the works, please be patient while we work on it.</p>
+        <Link href={"/"} className="underline">
+          Back Home
+        </Link>
+      </div>
     </div>
   );
 };
