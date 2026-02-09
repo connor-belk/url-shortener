@@ -14,7 +14,7 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
   const handleCopyShortUrlMobile = () => {
     if (!document.getElementById("short-url-text-mobile")?.innerText) return;
     const shortUrlText = document.getElementById(
-      "short-url-text-mobile"
+      "short-url-text-mobile",
     )?.innerHTML;
     navigator.clipboard.writeText(shortUrlText!);
     toast.success("Copied short URL to clipboard");
@@ -25,7 +25,7 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
     <div className="w-full mb-4">
       <p className="text-3xl text-center">Your short URL for:</p>
       <textarea
-        className="border p-2 text-lg rounded-lg bg-inherit h-12 w-full resize-none no-scrollbar text-center"
+        className="border p-2 text-lg rounded-lg bg-inherit h-auto w-full resize-none no-scrollbar text-center"
         value={originalUrl}
         readOnly
       ></textarea>

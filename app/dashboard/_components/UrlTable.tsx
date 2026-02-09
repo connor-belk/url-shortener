@@ -24,11 +24,15 @@ const UrlTable = async () => {
     orderBy: { createdAt: "desc" },
   });
 
-  //   #TODO: add delete logic                #DONE
-  //   #TODO: add delete functionality        #DONE
-  //   #TODO: add edit logic                  #DONE
-  //   #TODO: add edit functionality
-  //   #TODO: add table refresh functionality
+  /*
+    #TODO: rebuild url table to be sizeable for mobile functions:
+    >List of clickable shortURLs as tiles (incl. hits, disable, delete btns?)
+    >url details page:
+      -editable form for nickname
+      -full url, shortURL, disable, delete, renew (default expiry)
+      -
+
+  */
 
   return (
     <table className="border w-full my-3">
