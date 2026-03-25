@@ -9,7 +9,7 @@ export default async function UrlDashboard({ userUrls }: { userUrls: any }) {
   return (
     <div className="mt-4">
       <h2 className="text-center">Your URLs:</h2>
-      <ul className="mt-5 grid grid-cols-1 gap-5 justify-center items-center">
+      <ul className="mt-5 max-w-[50rem] grid grid-cols-1 gap-5 md:grid-cols-2 w-[100%] mx-auto">
         {userUrls.map((url: any) => (
           <UrlTile
             key={url.id}
