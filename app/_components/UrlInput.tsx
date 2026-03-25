@@ -18,7 +18,7 @@ const UrlInput = ({ session }: { session: any }) => {
   // const session = true;
 
   const handleSubmitUrlToServer = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     setLoading(true);
@@ -41,27 +41,31 @@ const UrlInput = ({ session }: { session: any }) => {
       },
     });
 
-    if (response.status === 200) {
-      const { url, shortUrl } = await response.json();
-      toast.success("URL added successfully");
-      setShortUrl(shortUrl);
-      console.log(url, shortUrl);
-      setOriginalUrl(url);
-      setUrl("");
-      setCustomTailEnd("");
-      setLoading(false);
-    }
-
-    if (response.status === 401) {
-      toast.error("You must be logged in to add a custom domain path");
-      setCustomTailEnd("");
-      setUrl("");
-      setLoading(false);
-    }
-
-    if (!response.ok && response.status !== 401) {
-      toast.error("Something went wrong. Please try again.");
-      setLoading(false);
+    switch (response.status) {
+      case 201:
+        const { url, shortUrl } = await response.json();
+        toast.success("URL added successfully");
+        setShortUrl(shortUrl);
+        console.log(url, shortUrl);
+        setOriginalUrl(url);
+        setUrl("");
+        setCustomTailEnd("");
+        setLoading(false);
+        break;
+      case 401:
+        toast.error("You must be logged in to add a custom domain path");
+        setCustomTailEnd("");
+        setUrl("");
+        setLoading(false);
+        break;
+      case 429:
+        toast.error("Watch your request rate! Try again later.");
+        setLoading(false);
+        break;
+      default:
+        toast.error("Something went wrong. Please try again.");
+        setLoading(false);
+        break;
     }
   };
 

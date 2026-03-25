@@ -45,5 +45,5 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  return Response.json({ url: url, shortUrl: shortUrl }, { status: 200 });
+  return Response.json({ url: url, shortUrl: shortUrl }, { status: 201 });
 }
