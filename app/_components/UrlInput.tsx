@@ -56,6 +56,12 @@ const UrlInput = ({ session }: { session: any }) => {
       toast.error("You must be logged in to add a custom domain path");
       setCustomTailEnd("");
       setUrl("");
+      setLoading(false);
+    }
+
+    if (!response.ok && response.status !== 401) {
+      toast.error("Something went wrong. Please try again.");
+      setLoading(false);
     }
   };
 
@@ -85,7 +91,7 @@ const UrlInput = ({ session }: { session: any }) => {
             minLength={7}
             name="custom-tail-end"
             id="custom-tail-end"
-            placeholder="Custom: Maximum of 12 characters"
+            placeholder="Custom: 7-14 characters"
             className="text-md text-center px-4 py-2 rounded-lg bg-inherit border border-gray-300 w-full focus:outline-none focus:border-transparent focus:ring-2 focus:ring-slate-50"
             value={customTailEnd}
             onChange={(e: any) => setCustomTailEnd(e.target.value)}
