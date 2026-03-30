@@ -36,10 +36,12 @@ const UrlTile = (props: Props) => {
         toast.success("Link updated successfully.");
         break;
       case 401:
-        alert("You must be logged in to enable/disable this URL.");
+        toast.error("You must be logged in to enable/disable this URL.");
+        setEnabled(enabled); // revert to previous state if error
         break;
       default:
-        alert("Something went wrong. Please try again.");
+        toast.error("Something went wrong. Please try again.");
+        setEnabled(enabled); // revert to previous state if error
         break;
     }
   };
