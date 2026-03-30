@@ -46,7 +46,7 @@ const UrlInput = ({ session }: { session: any }) => {
         const { url, shortUrl } = await response.json();
         toast.success("URL added successfully");
         setShortUrl(shortUrl);
-        console.log(url, shortUrl);
+
         setOriginalUrl(url);
         setUrl("");
         setCustomTailEnd("");

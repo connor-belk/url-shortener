@@ -5,6 +5,7 @@ import { Switch } from "@headlessui/react";
 import { useState } from "react";
 import { IoTrashBin } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 type Props = {
   id: string;
@@ -32,7 +33,7 @@ const UrlTile = (props: Props) => {
     switch (res.status) {
       case 200:
         setEnabled(!enabled);
-        console.log("link updated successfully.");
+        toast.success("Link updated successfully.");
         break;
       case 401:
         alert("You must be logged in to enable/disable this URL.");
@@ -59,7 +60,7 @@ const UrlTile = (props: Props) => {
     }).then((res) => {
       switch (res.status) {
         case 200:
-          console.log("Link deleted successfully.");
+          toast.success("Link deleted successfully.");
           router.refresh();
           break;
         case 401:
