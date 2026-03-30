@@ -3,7 +3,7 @@ const PrivacyPolicyPage = () => {
     <div className="w-full flex flex-col items-center justify-center mb-10">
       <div className="text-lg mx-4 my-2 max-w-[768px] flex flex-col">
         <h2 className="text-4xl text-center font-bold">Privacy Policy</h2>
-        <p className="text-center">Last updated: June 9, 2024</p>
+        <p className="text-center">Last updated: March 30, 2026</p>
         <br />
         <section className="my-5">
           <h3 className="text-2xl text-center font-bold">Introduction</h3>
@@ -71,7 +71,8 @@ const PrivacyPolicyPage = () => {
           <p className="">
             You have the right to access, update, or delete your personal
             information. If you wish to exercise any of these rights, please
-            contact us at email@domain.com.
+            contact us at support@belkweb.dev with the subject "PERSONAL DATA
+            REQUEST" and we will respond to your request as soon as possible.
           </p>
         </section>
         <section className="my-5">
@@ -87,7 +88,7 @@ const PrivacyPolicyPage = () => {
           <h3 className="text-2xl text-center font-bold">Contact Us</h3>
           <p className="">
             If you have any questions or concerns about this privacy policy,
-            please contact us at email@domain.com.
+            please contact us at support@belkweb.dev.
           </p>
         </section>
         <p>Effective Date: June 9, 2024</p>
