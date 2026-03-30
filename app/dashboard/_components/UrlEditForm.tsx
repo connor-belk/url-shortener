@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
+import { toast } from "react-hot-toast";
 
 type Props = {
   url: {
@@ -52,7 +53,7 @@ export default function UrlEditForm({ url }: Props) {
       setShortUrlError(error);
       return;
     }
-    await fetch(`/api/url/${url.id}`, {
+    const res = await fetch(`/api/url/${url.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -61,6 +62,13 @@ export default function UrlEditForm({ url }: Props) {
         expiresAt: expiresAt ?? null,
       }),
     });
+
+    if (!res.ok) {
+      const message = await res.text();
+      toast.error(message);
+      return;
+    }
+
     router.push("/dashboard");
   }
 
@@ -75,20 +83,25 @@ export default function UrlEditForm({ url }: Props) {
       headers: {
         ContentType: "application/json",
       },
-    }).then((res) => {
-      switch (res.status) {
-        case 200:
-          console.log("Link deleted successfully.");
-          router.push("/dashboard");
-          break;
-        case 401:
-          alert("You must be logged in to delete this URL.");
-          break;
-        default:
-          alert("Something went wrong. Please try again.");
-          break;
-      }
-    });
+    })
+      .then((res) => {
+        switch (res.status) {
+          case 200:
+            toast.success("Link deleted successfully.");
+            router.push("/dashboard");
+            break;
+          case 401:
+            toast.error("You must be logged in to delete this URL.");
+            break;
+          default:
+            toast.error("Something went wrong. Please try again.");
+            break;
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        return;
+      });
   };
 
   return (
