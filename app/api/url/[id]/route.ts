@@ -19,7 +19,9 @@ export async function GET(
   if (url.ownerId !== session.user?.id)
     return new Response("not authorized", { status: 401 });
 
-  return new Response(JSON.stringify(url));
+  return new Response(JSON.stringify(url), {
+    headers: { "Content-Type": "application/json" },
+  });
 }
 
 export async function PATCH(
@@ -64,7 +66,9 @@ export async function PATCH(
     },
   });
 
-  return new Response(JSON.stringify(updated));
+  return new Response(JSON.stringify(updated), {
+    headers: { "Content-Type": "application/json" },
+  });
 }
 
 export async function DELETE(
