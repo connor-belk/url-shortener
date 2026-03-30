@@ -44,6 +44,13 @@ export async function PATCH(
 
   if (shortUrl.length < 7) return new Response("too short", { status: 400 });
   if (shortUrl.length > 14) return new Response("too long", { status: 400 });
+  if (!/^[a-zA-Z0-9_-]+$/.test(shortUrl))
+    return new Response("invalid characters", { status: 400 });
+  let isUnique = await prisma.redirectLinks.findFirst({
+    where: { shortUrl: shortUrl, NOT: { id: url.id } },
+  });
+  if (isUnique)
+    return new Response("Custom URL already exists.", { status: 400 });
 
   const host = new URL(req.url).host;
   const fullShortUrl = `${host}/api/${shortUrl}`;
