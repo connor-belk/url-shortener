@@ -24,7 +24,7 @@ const Dashboard = async () => {
   });
 
   return (
-    <div className="flex-1 max-h-screen my-auto mx-3">
+    <div className="flex-1 my-auto mx-3">
       <h2 className="text-xl text-center mt-3">
         Manage your links here, <span>{session?.user?.name}</span>.
       </h2>
