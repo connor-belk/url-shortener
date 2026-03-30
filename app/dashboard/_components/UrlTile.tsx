@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { Switch } from "@headlessui/react";
 import { useState } from "react";
+import { IoTrashBin } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 type Props = {
   id: string;
-  title: string;
+  nickname: string;
   url: string;
   hits: number;
   enabled: boolean;
@@ -16,6 +18,7 @@ export const revalidate = 60;
 
 const UrlTile = (props: Props) => {
   const [enabled, setEnabled] = useState(props.enabled);
+  const router = useRouter();
 
   const toggleEnabled = async () => {
     const res = await fetch(`/api/${props.id}`, {
@@ -40,11 +43,40 @@ const UrlTile = (props: Props) => {
     }
   };
 
+  const handleDelete = async (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+    const deleteUrl = props.id;
+
+    if (!confirm("Are you sure you want to delete this URL?")) return;
+
+    e.preventDefault();
+
+    const res = await fetch(`/api/url/${deleteUrl}`, {
+      method: "DELETE",
+      body: JSON.stringify({ urlId: props.id }),
+      headers: {
+        ContentType: "application/json",
+      },
+    }).then((res) => {
+      switch (res.status) {
+        case 200:
+          console.log("Link deleted successfully.");
+          router.refresh();
+          break;
+        case 401:
+          alert("You must be logged in to delete this URL.");
+          break;
+        default:
+          alert("Something went wrong. Please try again.");
+          break;
+      }
+    });
+  };
+
   return (
     <Link href={`/dashboard/url/${props.id}`}>
       <div className="grid grid-cols-[1fr_auto] border border-slate-800 px-3 py-2 rounded-xl shadow-md shadow-slate-600 max-w-[50rem] w-full mx-auto transition-transform duration-150">
-        {props.title ? (
-          <h3 className="text-xl">{props.title}</h3>
+        {props.nickname ? (
+          <h3 className="text-xl">{props.nickname}</h3>
         ) : (
           <h3 className="text-lg">{props.url}</h3>
         )}
@@ -77,6 +109,10 @@ const UrlTile = (props: Props) => {
           />
         </Switch>
         {/* <p className="">{enabled ? "Enabled" : "Disabled"}</p> */}
+        <IoTrashBin
+          className="self-end place-self-end text-xl text-red-500 hover:scale-105"
+          onClick={(e) => handleDelete(e)}
+        />
       </div>
     </Link>
   );

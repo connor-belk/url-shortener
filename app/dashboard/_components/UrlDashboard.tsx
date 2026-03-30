@@ -14,7 +14,7 @@ export default async function UrlDashboard({ userUrls }: { userUrls: any }) {
           <UrlTile
             key={url.id}
             id={url.id}
-            title={""}
+            nickname={url.nickname}
             url={url.shortUrl}
             hits={url.hits}
             enabled={url.enabled}
