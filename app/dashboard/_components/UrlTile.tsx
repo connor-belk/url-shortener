@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Switch } from "@headlessui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoTrashBin } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
@@ -19,7 +19,12 @@ export const revalidate = 60;
 
 const UrlTile = (props: Props) => {
   const [enabled, setEnabled] = useState(props.enabled);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleEnabled = async () => {
     const res = await fetch(`/api/${props.id}`, {
@@ -85,32 +90,36 @@ const UrlTile = (props: Props) => {
         )}
         <p className="col-start-2 justify-self-end">Hits: {props.hits}</p>
         {/* <p>{enabled ? "🟢" : "🔴"}</p> */}
-        <Switch
-          checked={enabled}
-          onClick={(e) => {
-            // prevent the Link navigation
-            e.preventDefault();
-            e.stopPropagation();
-            toggleEnabled();
-          }}
-          className={({ checked }) =>
-            [
-              "relative inline-flex h-6 w-12 cursor-pointer rounded-full p-1",
-              "transition-colors duration-200 ease-in-out",
-              checked ? "bg-[#5dcf94]" : "bg-white/10",
-              "focus:outline-none focus:none focus:none",
-            ].join(" ")
-          }
-        >
-          <span
-            aria-hidden="true"
-            className={[
-              "inline-block size-4 rounded-full shadow-lg bg-gray-200",
-              "transform transition-transform duration-200 ease-in-out", // <- this is the animation
-              enabled ? "translate-x-6 bg-gray-800" : "translate-x-0",
-            ].join(" ")}
-          />
-        </Switch>
+        {mounted ? (
+          <Switch
+            checked={enabled}
+            onClick={(e) => {
+              // prevent the Link navigation
+              e.preventDefault();
+              e.stopPropagation();
+              toggleEnabled();
+            }}
+            className={({ checked }) =>
+              [
+                "relative inline-flex h-6 w-12 cursor-pointer rounded-full p-1",
+                "transition-colors duration-200 ease-in-out",
+                checked ? "bg-[#5dcf94]" : "bg-white/10",
+                "focus:outline-none focus:none focus:none",
+              ].join(" ")
+            }
+          >
+            <span
+              aria-hidden="true"
+              className={[
+                "inline-block size-4 rounded-full shadow-lg bg-gray-200",
+                "transform transition-transform duration-200 ease-in-out", // <- this is the animation
+                enabled ? "translate-x-6 bg-gray-800" : "translate-x-0",
+              ].join(" ")}
+            />
+          </Switch>
+        ) : (
+          <div className="text-md font-thin">loading...</div>
+        )}
         {/* <p className="">{enabled ? "Enabled" : "Disabled"}</p> */}
         <IoTrashBin
           className="self-end place-self-end text-xl text-red-500 hover:scale-105"
