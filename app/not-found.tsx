@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const NotFoundPage = () => {
+  const router = useRouter();
+
   return (
     <div className="flex-1 flex flex-col items-center m-5 mt-10  text-center text-lg gap-4">
       <h2 className="text-5xl font-bold">
@@ -16,7 +21,12 @@ const NotFoundPage = () => {
         <Link href="/" className="underline italic ">
           Go to homepage
         </Link>
-        <p className="underline italic cursor-pointer">Or go back</p>
+        <button
+          className="underline italic cursor-pointer"
+          onClick={() => router.back()}
+        >
+          Or go back
+        </button>
       </div>
     </div>
   );

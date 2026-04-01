@@ -1,6 +1,9 @@
 import { auth } from "@/auth";
 import Link from "next/link";
-import UrlTable from "./_components/UrlTable";
+import { prisma } from "@/lib/prisma";
+import UrlDashboard from "./_components/UrlDashboard";
+
+export const revalidate = 10;
 
 const Dashboard = async () => {
   const session = await auth();
@@ -15,15 +18,21 @@ const Dashboard = async () => {
       </div>
     );
 
+  const urls = await prisma.redirectLinks.findMany({
+    where: { ownerId: session.user?.id },
+    orderBy: { createdAt: "desc" },
+  });
+
   return (
-    <div className="flex-1 max-h-screen my-auto mx-10">
-      <h2 className="text-3xl mt-3">
+    <div className="flex-1 my-auto mx-3">
+      <h2 className="text-xl text-center mt-3">
         Manage your links here, <span>{session?.user?.name}</span>.
       </h2>
-      <div className="hidden lg:block">
-        <UrlTable />
+      <div className="lg:block">
+        <UrlDashboard userUrls={urls} />
       </div>
-      <div className="lg-hidden flex flex-col text-center items-center justify-center gap-5 mt-10">
+
+      {/* <div className="lg-hidden flex flex-col text-center items-center justify-center gap-5 mt-10">
         <p>
           Your URL table is hidden while not on a large screen due to ongoing
           optimization problems. We apologize for the inconvenience.
@@ -32,7 +41,7 @@ const Dashboard = async () => {
         <Link href={"/"} className="underline">
           Back Home
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

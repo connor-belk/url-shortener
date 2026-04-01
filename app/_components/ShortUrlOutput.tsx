@@ -6,7 +6,7 @@ import Image from "next/image";
 const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
   const handleCopyShortUrl = () => {
     if (!document.getElementById("short-url-text")?.innerText) return;
-    const shortUrlText = document.getElementById("short-url-text")?.innerHTML;
+    const shortUrlText = document.getElementById("short-url-text")?.textContent;
     navigator.clipboard.writeText(shortUrlText!);
     toast.success("Copied short URL to clipboard");
   };
@@ -15,7 +15,7 @@ const ShortUrlOutput = ({ shortUrl, originalUrl }: any) => {
     if (!document.getElementById("short-url-text-mobile")?.innerText) return;
     const shortUrlText = document.getElementById(
       "short-url-text-mobile",
-    )?.innerHTML;
+    )?.textContent;
     navigator.clipboard.writeText(shortUrlText!);
     toast.success("Copied short URL to clipboard");
   };

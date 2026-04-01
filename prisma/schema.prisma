@@ -19,6 +19,7 @@ model RedirectLinks {
   id          String    @id @default(cuid())
   shortUrl    String    @unique
   redirectTo  String
+  nickname    String?
   hits        Int       @default(0)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt @default(now())

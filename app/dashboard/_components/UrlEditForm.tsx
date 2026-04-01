@@ -1,0 +1,210 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import Link from "next/link";
+import { FaArrowLeft } from "react-icons/fa6";
+import { toast } from "react-hot-toast";
+
+type Props = {
+  url: {
+    id: string;
+    shortUrl: string;
+    nickname: string | null;
+    redirectTo: string;
+    hits: number;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    ownerId: string | null;
+    enabled: boolean;
+    expiresAt: Date | null;
+  };
+};
+
+export default function UrlEditForm({ url }: Props) {
+  const router = useRouter();
+  const [nickname, setNickname] = useState(url.nickname ?? "");
+  const [shortUrl, setShortUrl] = useState(url.shortUrl.split("/").pop() ?? "");
+  const [expiresAt, setExpiresAt] = useState<Date | undefined>(
+    url.expiresAt ? new Date(url.expiresAt) : undefined,
+  );
+  const [shortUrlError, setShortUrlError] = useState("");
+  const [longUrlShow, setLongUrlShow] = useState(false);
+
+  function validateShortUrl(value: string) {
+    if (value.length < 7) return "Must be at least 7 characters.";
+    if (value.length > 14) return "Must be 14 characters or fewer.";
+    return "";
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const error = validateShortUrl(shortUrl);
+    if (error) {
+      setShortUrlError(error);
+      return;
+    }
+    const res = await fetch(`/api/url/${url.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nickname,
+        shortUrl,
+        expiresAt: expiresAt ?? null,
+      }),
+    });
+
+    if (!res.ok) {
+      const message = await res.text();
+      toast.error(message);
+      return;
+    }
+
+    router.push("/dashboard");
+  }
+
+  const handleDelete = async () => {
+    const deleteUrl = url.id;
+
+    if (!confirm("Are you sure you want to delete this URL?")) return;
+
+    const res = await fetch(`/api/url/${deleteUrl}`, {
+      method: "DELETE",
+      body: JSON.stringify({ urlId: url.id }),
+      headers: {
+        ContentType: "application/json",
+      },
+    })
+      .then((res) => {
+        switch (res.status) {
+          case 200:
+            toast.success("Link deleted successfully.");
+            router.push("/dashboard");
+            break;
+          case 401:
+            toast.error("You must be logged in to delete this URL.");
+            break;
+          default:
+            toast.error("Something went wrong. Please try again.");
+            break;
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        return;
+      });
+  };
+
+  return (
+    <div className="w-80 mx-auto">
+      <Link className="w-20 inline-block text-2xl" href={"/dashboard"}>
+        <FaArrowLeft />
+      </Link>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center justify-center gap-4 text-xl mx-auto"
+      >
+        <div className="flex flex-col items-center justify-center gap-3 w-full">
+          {longUrlShow ? (
+            <p
+              className="text-[1rem] cursor-pointer"
+              onClick={() => setLongUrlShow(false)}
+            >
+              {url.redirectTo}
+            </p>
+          ) : (
+            <p
+              className="cursor-pointer text-[1rem]"
+              onClick={() => setLongUrlShow(true)}
+            >
+              Click to show redirect.
+            </p>
+          )}
+          <label htmlFor="nickname">Set a Nickname:</label>
+          <input
+            type="text"
+            name="nickname"
+            id="nickname"
+            className="active:outline-none focus:outline-none bg-inherit border border-white/40 rounded-xl px-4 py-2 w-full text-white text-center"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col items-center justify-start gap-3 w-full">
+          <label htmlFor="shortUrl" className="text-xl">
+            Set a Custom URL:
+          </label>
+          <input
+            type="text"
+            name="shortUrl"
+            id="shortUrl"
+            className="active:outline-none focus:outline-none bg-inherit border border-white/40 rounded-xl px-4 py-2 w-full text-white text-center text-xl"
+            value={shortUrl}
+            onChange={(e) => {
+              setShortUrl(e.target.value);
+              setShortUrlError(validateShortUrl(e.target.value));
+            }}
+          />
+          {shortUrlError && (
+            <p className="text-red-400 text-sm">{shortUrlError}</p>
+          )}
+        </div>
+        <div className="flex flex-col items-center gap-3 w-full">
+          <label htmlFor="expiresAt">Pick an Expiration Date:</label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="ghost"
+                className="w-full justify-start gap-2 text-left text-xl font-normal bg-inherit border border-white/40 rounded-xl px-4 py-2 h-auto text-white hover:bg-white/10 hover:text-white"
+              >
+                <CalendarIcon className="size-4" />
+                {expiresAt ? format(expiresAt, "PPP") : "No expiration"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="center">
+              <Calendar
+                mode="single"
+                selected={expiresAt}
+                onSelect={setExpiresAt}
+                disabled={(date) => date < new Date()}
+              />
+              {expiresAt && (
+                <div className="border-t p-3 text-center">
+                  <button
+                    type="button"
+                    onClick={() => setExpiresAt(undefined)}
+                    className="text-sm text-muted-foreground hover:text-foreground"
+                  >
+                    Clear expiration
+                  </button>
+                </div>
+              )}
+            </PopoverContent>
+          </Popover>
+        </div>
+        <div className="flex flex-row justify-around w-full">
+          <input
+            type="submit"
+            className="px-5 py-2 text-2xl text-black bg-blue-400 rounded-xl cursor-pointer"
+          />
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="px-5 py-2 text-2xl text-white border-2 border-red-400 hover:bg-red-400 rounded-xl cursor-pointer transition-all duration-150"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
