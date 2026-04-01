@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 import Navbar from "./_components/Navbar";
@@ -19,6 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="flex flex-col h-[100%]">
+      <Analytics />
       <body
         className={`${roboto.className} flex flex-col h-[100%] bg-black text-gray-100`}
       >
