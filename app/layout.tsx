@@ -10,7 +10,14 @@ const roboto = Roboto_Condensed({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "SHRTNR",
   description:
-    "Shorten URLs quickly and easily with our efficient URL shortener. Create manageable, shareable links with custom aliases, analytics tracking, and more. Perfect for social media, emails, and simplifying long URLs. Try it now!",
+    "Shorten URLs instantly with SHRTNR — a fast, free URL shortener with custom aliases, analytics, and link management. Perfect for social media and emails.",
+  openGraph: {
+    title: "SHRTNR - Shorten URLs quickly and easily",
+    description:
+      "Shorten URLs instantly with SHRTNR — a fast, free URL shortener with custom aliases, analytics, and link management. Perfect for social media and emails.",
+    url: "https://shrtnr.belkweb.dev/",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
