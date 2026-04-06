@@ -71,10 +71,11 @@ const UrlTile = (props: Props) => {
           router.refresh();
           break;
         case 401:
-          alert("You must be logged in to delete this URL.");
+          toast.error("You must be logged in to delete this URL.");
+          router.push("/");
           break;
         default:
-          alert("Something went wrong. Please try again.");
+          toast.error("Something went wrong. Please try again.");
           break;
       }
     });
